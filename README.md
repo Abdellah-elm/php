@@ -44,8 +44,8 @@ Si vous souhaitez lancer ce projet sur votre machine :
 
 1.  **Cloner le dépôt :**
     ```bash
-    git clone [https://github.com/Abdellah-elm/EventShop](https://github.com/Abdellah-elm/EventShop)
-    cd ton-repo
+    git clone https://github.com/Abdellah-elm/EventShop
+    cd EventShop
     ```
 
 2.  **Installer les dépendances :**
