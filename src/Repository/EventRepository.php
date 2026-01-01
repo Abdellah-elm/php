@@ -40,7 +40,7 @@ class EventRepository extends ServiceEntityRepository
             ->orWhere('e.description LIKE :query')
             ->orWhere('e.location LIKE :query')
             ->setParameter('query', '%' . $query . '%')
-            ->orderBy('e.date_start', 'ASC')
+            ->orderBy('e.dateStart', 'ASC')
             ->getQuery()
             ->getResult();
     }
