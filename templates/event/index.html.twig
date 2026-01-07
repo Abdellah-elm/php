@@ -48,14 +48,16 @@
                     {# --- ZONE IMAGE --- #}
                     <a href="{{ path('app_event_show', {'id': event.id}) }}" class="d-block position-relative overflow-hidden" style="height: 250px;">
                         
-                        {# IMAGE PRINCIPALE #}
-                        {# Astuce : On essaie .jpg d'abord. Si erreur, le script JS bascule sur .jpeg, puis sur default.jpeg #}
-                        <img src="{{ asset('images/' ~ event.id ~ '.jpg') }}" 
+                        {# IMAGE PRINCIPALE CORRIGÉE (Chemin Absolu) #}
+                        {# Le slash / au début force le navigateur à chercher à la racine du site #}
+                        <img src="/images/{{ event.id }}.jpg" 
                              alt="{{ event.title }}"
                              class="w-100 h-100"
                              style="object-fit: cover; transition: transform 0.5s ease;"
-                             onerror="this.onerror=null; this.src='{{ asset('images/' ~ event.id ~ '.jpeg') }}'; this.onerror=function(){this.src='{{ asset('images/default.jpeg') }}';};">
-                        {# FILTRE NOIR EN BAS (pour que le texte ressorte si besoin) #}
+                             {# Script de secours pour gérer les extensions .jpeg et l'image par défaut #}
+                             onerror="this.onerror=null; this.src='/images/{{ event.id }}.jpeg'; this.onerror=function(){this.src='/images/default.jpeg';};">
+
+                        {# FILTRE NOIR EN BAS #}
                         <div class="position-absolute bottom-0 start-0 w-100 h-50" 
                              style="background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);"></div>
 
