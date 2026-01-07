@@ -5,122 +5,56 @@
 {% block body %}
 <div class="container py-5">
     
-    {# --- EN-TÊTE --- #}
     <div class="text-center mb-5">
-        <h1 class="fw-bold display-5 mb-3" style="font-family: 'Poppins', sans-serif;">
-            Billetterie <span class="text-warning">En Ligne</span>
-        </h1>
-        
-        {# BARRE DE RECHERCHE #}
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <form action="{{ path('app_event_index') }}" method="GET" class="position-relative shadow rounded-pill bg-white">
-                    <input type="text" name="q" class="form-control form-control-lg border-0 rounded-pill ps-5 py-3" 
-                           placeholder="Chercher un événement..." 
-                           value="{{ searchQuery|default('') }}" style="box-shadow: none;">
-                    <button type="submit" class="btn btn-warning rounded-pill position-absolute top-50 end-0 translate-middle-y me-2 fw-bold px-4">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
+        <h1 class="fw-bold display-5 mb-3">Billetterie <span class="text-warning">En Ligne</span></h1>
     </div>
-    
-    {# BOUTON ADMIN #}
-    {% if is_granted('ROLE_ADMIN') %}
-        <div class="d-flex justify-content-end mb-4">
-            <a href="{{ path('app_event_new') }}" class="btn btn-dark shadow-sm">
-                <i class="fas fa-plus-circle text-warning me-2"></i> Créer
-            </a>
-        </div>
-    {% endif %}
 
     {# GRILLE DES ÉVÉNEMENTS #}
     <div class="row g-4">
         {% for event in events %}
-            {# CALCULS STOCK #}
-            {% set sold = event.billets|length %}
-            {% set remaining = event.capacity - sold %}
-
-            {# --- LOGIQUE DES IMAGES MANUELLE (POUR LA DÉMO) --- #}
-            {# On définit l'image par défaut pour tout le monde #}
+            
+            {# --- LOGIQUE HARDCODED --- #}
             {% set image_path = '/images/default.jpeg' %}
 
-            {# On force les images spécifiques pour les IDs connus #}
+            {# On compare l'ID. Note : on utilise id matches pour etre sur #}
             {% if event.id == 1 %}
-                {% set image_path = 'public/images/1.jpeg' %}
+                {% set image_path = '/images/1.jpeg' %}
             {% elseif event.id == 2 %}
-                {% set image_path = 'public/images/2.jpg' %}
+                {% set image_path = '/images/2.jpg' %}
             {% elseif event.id == 3 %}
-                {% set image_path = 'public/images/3.jpeg' %}
+                {% set image_path = '/images/3.jpeg' %}
             {% elseif event.id == 4 %}
-                {% set image_path = 'public/images/4.jpeg' %}
-            {% elseif event.id == 5 %}
-                {# Si tu ajoutes d'autres images, continue la liste ici #}
-                {% set image_path = 'public/images/default.jpeg' %}
+                {% set image_path = '/images/4.jpeg' %}
             {% endif %}
 
             <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden card-hover position-relative" style="background: #fff;">
+                <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden position-relative">
                     
+                    {# --- DEBUG : AFFICHE L'ID EN ROUGE (A supprimer après) --- #}
+                    <div class="position-absolute top-50 start-50 translate-middle bg-danger text-white fw-bold p-3 rounded shadow" style="z-index: 1000; opacity: 0.9;">
+                        DEBUG ID: {{ event.id }}
+                    </div>
+
                     {# --- ZONE IMAGE --- #}
                     <a href="{{ path('app_event_show', {'id': event.id}) }}" class="d-block position-relative overflow-hidden" style="height: 250px;">
                         
-                        {# IMAGE HARDCODED #}
-                        <img src="{{ image_path }}" 
+                        {# IMAGE avec CACHE BUSTER (?v=random) #}
+                        {# Le random() force le navigateur a re-telecharger l'image a chaque fois #}
+                        <img src="{{ image_path }}?v={{ random() }}" 
                              alt="{{ event.title }}"
                              class="w-100 h-100"
-                             style="object-fit: cover; transition: transform 0.5s ease;">
-
-                        {# FILTRE NOIR EN BAS #}
-                        <div class="position-absolute bottom-0 start-0 w-100 h-50" 
-                             style="background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);"></div>
-
-                        {# PRIX (Badge Flottant) #}
-                        <div class="position-absolute top-0 end-0 m-3">
-                            <span class="badge bg-white text-dark fw-bold py-2 px-3 rounded-pill shadow-sm">
-                                {{ event.price ? event.price ~ ' MAD' : 'Gratuit' }}
-                            </span>
-                        </div>
+                             style="object-fit: cover;"
+                             onerror="this.src='/images/default.jpeg?v={{ random() }}'">
+                             
                     </a>
-                    
-                    {# BOUTON MODIFIER (ADMIN) #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
-                            <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn btn-light btn-sm shadow-sm rounded-circle" style="width: 35px; height: 35px; display:flex; align-items:center; justify-content:center;">
-                                <i class="fas fa-pen text-dark"></i>
-                            </a>
-                        </div>
-                    {% endif %}
 
                     <div class="card-body p-4">
-                        {# LIEU #}
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fas fa-map-pin text-warning me-2 small"></i>
-                            <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.75rem;">{{ event.location }}</span>
-                        </div>
-                        
-                        {# TITRE #}
-                        <a href="{{ path('app_event_show', {'id': event.id}) }}" class="text-decoration-none text-dark">
-                            <h5 class="card-title fw-bold mb-2 fs-4" style="font-family: 'Poppins', sans-serif;">{{ event.title }}</h5>
-                        </a>
-
-                        {# DATE #}
-                        <div class="mb-4 text-muted small">
-                            <i class="far fa-calendar me-2"></i> {{ event.dateStart ? event.dateStart|date('d F Y à H:i') : 'Date à venir' }}
-                        </div>
-
-                        {# BOUTON D'ACTION #}
-                        <div class="d-grid">
-                            {% if remaining > 0 %}
-                                <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-dark rounded-pill py-2 fw-bold" style="background-color: #0f172a;">
-                                    Réserver un billet
-                                </a>
-                            {% else %}
-                                <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-light border rounded-pill py-2 disabled text-muted">
-                                    Complet
-                                </a>
-                            {% endif %}
+                        <h5 class="card-title fw-bold">{{ event.title }}</h5>
+                         {# BOUTON D'ACTION #}
+                        <div class="d-grid mt-3">
+                            <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-dark rounded-pill">
+                                Voir
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -128,15 +62,4 @@
         {% endfor %}
     </div>
 </div>
-
-{# CSS CUSTOM #}
-<style>
-    .card-hover:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
-    }
-    .card-hover:hover img {
-        transform: scale(1.05); /* Zoom léger sur l'image au survol */
-    }
-</style>
 {% endblock %}
