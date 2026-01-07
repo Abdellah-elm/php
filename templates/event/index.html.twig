@@ -42,22 +42,36 @@
             {% set sold = event.billets|length %}
             {% set remaining = event.capacity - sold %}
 
+            {# --- LOGIQUE DES IMAGES MANUELLE (POUR LA DÉMO) --- #}
+            {# On définit l'image par défaut pour tout le monde #}
+            {% set image_path = '/images/default.jpeg' %}
+
+            {# On force les images spécifiques pour les IDs connus #}
+            {% if event.id == 1 %}
+                {% set image_path = 'public/images/1.jpeg' %}
+            {% elseif event.id == 2 %}
+                {% set image_path = 'public/images/2.jpg' %}
+            {% elseif event.id == 3 %}
+                {% set image_path = 'public/images/3.jpeg' %}
+            {% elseif event.id == 4 %}
+                {% set image_path = 'public/images/4.jpeg' %}
+            {% elseif event.id == 5 %}
+                {# Si tu ajoutes d'autres images, continue la liste ici #}
+                {% set image_path = 'public/images/default.jpeg' %}
+            {% endif %}
+
             <div class="col-md-6 col-lg-4">
                 <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden card-hover position-relative" style="background: #fff;">
                     
                     {# --- ZONE IMAGE --- #}
                     <a href="{{ path('app_event_show', {'id': event.id}) }}" class="d-block position-relative overflow-hidden" style="height: 250px;">
                         
-                        {# IMAGE PRINCIPALE CORRIGÉE (Chemin Absolu) #}
-                        {# Le slash / au début force le navigateur à chercher à la racine du site #}
-                      {# CORRECTIF FINAL : Priorité au format .jpeg #}
+                        {# IMAGE HARDCODED #}
+                        <img src="{{ image_path }}" 
+                             alt="{{ event.title }}"
+                             class="w-100 h-100"
+                             style="object-fit: cover; transition: transform 0.5s ease;">
 
-<img src="/images/{{ event.id }}.jpeg" 
-     alt="{{ event.title }}"
-     class="w-100 h-100"
-     style="object-fit: cover; transition: transform 0.5s ease;"
-     {# Si .jpeg ne marche pas (ex: event 2), on essaie .jpg. Si ça rate, on met default #}
-     onerror="this.onerror=null; this.src='/images/{{ event.id }}.jpg'; this.onerror=function(){this.src='/images/default.jpeg';};">
                         {# FILTRE NOIR EN BAS #}
                         <div class="position-absolute bottom-0 start-0 w-100 h-50" 
                              style="background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);"></div>
