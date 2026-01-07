@@ -42,13 +42,11 @@ public function authenticate(Request $request): Passport
     );
 }
 
-// src/Security/AppAuthenticator.php
 
 public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
 {
     
 
-    // Redirection vers la page des événements après connexion
     return new RedirectResponse($this->urlGenerator->generate('app_event_index'));
 }
 

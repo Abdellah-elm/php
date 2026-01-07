@@ -10,13 +10,12 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/scan')]
-#[IsGranted('ROLE_ADMIN')] // Seul le staff peut scanner
+#[IsGranted('ROLE_ADMIN')] 
 class ValidatorController extends AbstractController
 {
     #[Route('/{id}', name: 'app_validate_ticket')]
     public function validate(Billet $billet, EntityManagerInterface $em): Response
     {
-        // 1. Si le billet est déjà scanné -> ERREUR
         if ($billet->getStatus() === 'UTILISÉ') {
             return $this->render('validator/result.html.twig', [
                 'billet' => $billet,
@@ -25,8 +24,7 @@ class ValidatorController extends AbstractController
             ]);
         }
 
-        // 2. Sinon -> VALIDATION
-        $billet->setStatus('UTILISÉ'); // On "brûle" le billet
+        $billet->setStatus('UTILISÉ');
         $em->flush();
 
         return $this->render('validator/result.html.twig', [

@@ -6,7 +6,6 @@
     <div class="container mt-4">
         <h1 class="mb-4 text-primary">🎟️ Mes Billets de Réservation</h1>
 
-        {# On utilise directement app.user.billets pour être sûr de TOUT voir #}
         {% if app.user.billets|length > 0 %}
             <div class="table-responsive shadow-sm">
                 <table class="table table-hover align-middle">
@@ -27,7 +26,7 @@
                                 <td class="fw-bold text-secondary">#{{ billet.id }}</td>
                                 <td><span class="fw-bold">{{ billet.event.title }}</span></td>
                                 <td>{{ billet.event.location }}</td>
-                                {# Correction du nom du champ : dateStart #}
+                               
                                 <td>{{ billet.event.dateStart ? billet.event.dateStart|date('d/m/Y H:i') : 'Date non définie' }}</td>
                                 <td>
                                     {% if billet.commande %}

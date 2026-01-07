@@ -9,7 +9,6 @@
             
             <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
                 
-                {# En-tête (Sans émoji) #}
                 <div class="card-header bg-dark text-white text-center py-4">
                     <h2 class="h4 fw-bold mb-1">Créer un compte</h2>
                     <p class="small text-white-50 mb-0">Rejoignez la communauté EventShop</p>
@@ -21,7 +20,6 @@
 
                     {{ form_start(registrationForm, {'attr': {'class': 'needs-validation'}}) }}
                         
-                        {# 1. Champ Nom (Ajouté ici pour être en haut) #}
                         <div class="mb-4">
                             {{ form_label(registrationForm.nom, 'Nom complet', {'label_attr': {'class': 'form-label fw-bold'}}) }}
                             {{ form_widget(registrationForm.nom, {
@@ -35,8 +33,6 @@
                             </div>
                         </div>
 
-                        {# 2. Champ Adresse (Ajouté ici pour être en haut) #}
-                        {# Note : Si le champ s'appelle 'address' dans votre entité, remplacez .adresse par .address #}
                         <div class="mb-4">
                             {{ form_label(registrationForm.adresse, 'Adresse', {'label_attr': {'class': 'form-label fw-bold'}}) }}
                             {{ form_widget(registrationForm.adresse, {
@@ -50,7 +46,6 @@
                             </div>
                         </div>
 
-                        {# 3. Champ Email #}
                         <div class="mb-4">
                             {{ form_label(registrationForm.email, 'Adresse Email', {'label_attr': {'class': 'form-label fw-bold'}}) }}
                             {{ form_widget(registrationForm.email, {
@@ -64,7 +59,6 @@
                             </div>
                         </div>
 
-                        {# 4. Champ Mot de passe #}
                         <div class="mb-4">
                             {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label fw-bold'}}) }}
                             {{ form_widget(registrationForm.plainPassword, {
@@ -78,7 +72,6 @@
                             </div>
                         </div>
 
-                        {# 5. Conditions Générales #}
                         <div class="mb-4 form-check">
                             {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
                             <label class="form-check-label small text-muted" for="{{ registrationForm.agreeTerms.vars.id }}">
@@ -89,7 +82,6 @@
                             </div>
                         </div>
 
-                        {# 6. Bouton d'action #}
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-warning btn-lg fw-bold text-dark shadow-sm">
                                 S'inscrire maintenant

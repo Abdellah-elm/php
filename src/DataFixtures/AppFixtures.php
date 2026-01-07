@@ -23,7 +23,6 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        // --- 1. ADMIN ---
         $admin = new User();
         $admin->setEmail('admin@gmail.com');
         $admin->setNom('admin');
@@ -32,7 +31,6 @@ class AppFixtures extends Fixture
         $admin->setPassword($this->hasher->hashPassword($admin, 'admin'));
         $manager->persist($admin);
 
-        // --- 2. CLIENTS ---
         $users = [];
         $noms = ['Bennani', 'Alami', 'Tazi', 'Idrissi', 'Benjelloun'];
         
@@ -48,7 +46,6 @@ class AppFixtures extends Fixture
             $users[] = $user;
         }
 
-        // --- 3. ÉVÉNEMENTS ---
         $eventsData = [
             [
                 'title' => 'Marrakech du Rire 2026',
@@ -96,7 +93,6 @@ class AppFixtures extends Fixture
 
             $manager->persist($event);
 
-            // --- 4. BILLETS ---
             $nbBillets = rand(5, 30);
             if($data['cap'] == 100) $nbBillets = 95;
 
@@ -105,10 +101,8 @@ class AppFixtures extends Fixture
                 $billet->setEvent($event);
                 $billet->setUser($users[array_rand($users)]);
                 
-                // --- CORRECTION : AJOUT DU STATUT OBLIGATOIRE ---
                 $billet->setStatus('VALIDE'); 
                 
-                // Ajout de la date de création aussi pour être sûr
 
 
                 $manager->persist($billet);

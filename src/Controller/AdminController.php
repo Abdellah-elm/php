@@ -2,18 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Event; // Import important pour l'export
+use App\Entity\Event; 
 use App\Repository\BilletRepository;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse; // Import pour le fichier CSV
+use Symfony\Component\HttpFoundation\StreamedResponse; 
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin')]
-#[IsGranted('ROLE_ADMIN')] // Sécurité totale pour ce contrôleur
+#[IsGranted('ROLE_ADMIN')] 
 class AdminController extends AbstractController
 {
     #[Route('/dashboard', name: 'app_admin_dashboard')]
@@ -23,30 +23,23 @@ class AdminController extends AbstractController
         UserRepository $userRepo
     ): Response
     {
-        // 1. Les chiffres clés (KPIs)
         $totalEvents = $eventRepo->count([]);
         $totalUsers = $userRepo->count([]);
         $totalBillets = $billetRepo->count([]);
 
-        // 2. Calcul du Chiffre d'Affaires PRÉCIS
         $events = $eventRepo->findAll();
         $chiffreAffaires = 0;
         
-        // Données pour le GRAPHIQUE
         $eventNames = [];
         $ticketCounts = [];
 
         foreach ($events as $event) {
-            // Nombre de billets vendus pour cet événement
             $sold = count($event->getBillets());
             
-            // On récupère le vrai prix depuis la base de données.
             $realPrice = $event->getPrice() ?? 0; 
             
-            // On ajoute au total global
             $chiffreAffaires += ($sold * $realPrice);
 
-            // Préparation des données pour le graphique
             $eventNames[] = $event->getTitle();
             $ticketCounts[] = $sold;
         }
@@ -61,9 +54,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * NOUVELLE FONCTION : Exporter la liste des invités en CSV (Excel)
-     */
     #[Route('/event/{id}/export', name: 'app_admin_export_guests')]
     #[Route('/event/{id}/export', name: 'app_admin_export_guests')]
    
@@ -75,15 +65,11 @@ class AdminController extends AbstractController
     {
         $csvContent = [];
         
-        // Entêtes
         $csvContent[] = "\xEF\xBB\xBF" . implode(';', ['ID Billet', 'Nom', 'Email', 'Date Emission', 'Etat']);
 
         foreach ($event->getBillets() as $billet) {
             $user = $billet->getUser();
             
-            // --- SECURISATION TOTALE ---
-            // On ne demande plus getCreatedAt().
-            // On met la date d'aujourd'hui par défaut pour l'export.
             $date = date('d/m/Y'); 
 
             $csvContent[] = implode(';', [

@@ -24,19 +24,15 @@ class RegistrationController extends AbstractController
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
 
-            // encode the plain password// src/Controller/RegistrationController.php
-
-// ... à l'intérieur de la méthode register ...
 $user->setPassword(
     $userPasswordHasher->hashPassword(
         $user,
-        $form->get('plainPassword')->getData() // On récupère le mot de passe en clair
+        $form->get('plainPassword')->getData() 
     )
 );
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_event_index');
         }

@@ -5,26 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}EventShop{% endblock %}</title>
         
-        {# 1. Google Fonts (Pour le look Pro) #}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
 
-        {# 2. Bootstrap 5 #}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         
-        {# 3. FontAwesome #}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        {# 4. Chart.js #}
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        {# 5. TON CSS PERSONNALISÉ (Directement ici pour l'instant) #}
         <style>
             :root {
-                --primary-dark: #0f172a; /* Bleu nuit profond */
-                --accent-gold: #fbbf24;  /* Doré */
-                --accent-orange: #f59e0b; /* Orange */
+                --primary-dark: #0f172a; 
+                --accent-gold: #fbbf24;
+                --accent-orange: #f59e0b; 
             }
             body {
                 font-family: 'Inter', sans-serif;
@@ -34,7 +29,7 @@
             h1, h2, h3, h4, h5, .navbar-brand {
                 font-family: 'Poppins', sans-serif;
             }
-            /* Navbar stylisée */
+            
             .navbar-custom {
                 background-color: var(--primary-dark);
                 padding: 1rem 0;
@@ -52,22 +47,22 @@
             .nav-link:hover, .nav-link.active {
                 color: var(--accent-gold) !important;
             }
-            /* Bouton Gradient "Wow" */
+           
             .btn-gradient {
                 background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
                 border: none;
                 color: #000;
                 font-weight: 700;
-                border-radius: 50px; /* Bouton arrondi */
+                border-radius: 50px;
                 padding: 0.5rem 1.5rem;
                 transition: transform 0.2s;
             }
             .btn-gradient:hover {
-                transform: translateY(-2px); /* Petit saut au survol */
+                transform: translateY(-2px); 
                 box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
                 color: #000;
             }
-            /* Footer Pro */
+         
             footer {
                 background-color: var(--primary-dark);
                 color: rgba(255,255,255,0.6);
@@ -79,7 +74,6 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         
-        {# --- BARRE DE NAVIGATION PREMIUM --- #}
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-lg sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ path('app_event_index') }}">
@@ -99,10 +93,8 @@
 
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-3">
                         
-                        {# CAS 1 : UTILISATEUR CONNECTÉ #}
                         {% if app.user %}
                             
-                            {# Panier #}
                             <li class="nav-item">
                                 <a class="nav-link position-relative" href="{{ path('app_panier_index') }}">
                                     <i class="fas fa-shopping-cart fa-lg"></i>
@@ -114,7 +106,6 @@
                                 </a>
                             </li>
 
-                            {# Dropdown User #}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown">
                                     <div class="bg-white text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 35px; height: 35px;">
@@ -126,7 +117,6 @@
                                     <li><h6 class="dropdown-header">Mon Compte</h6></li>
                                     <li><a class="dropdown-item" href="{{ path('app_my_tickets') }}"><i class="fas fa-ticket-alt me-2 text-primary"></i> Mes Billets</a></li>
                                     
-                                    {# SECTION ADMIN #}
                                     {% if is_granted('ROLE_ADMIN') %}
                                         <li><hr class="dropdown-divider"></li>
                                         <li><h6 class="dropdown-header text-danger">Zone Admin</h6></li>
@@ -139,7 +129,6 @@
                                 </ul>
                             </li>
 
-                        {# CAS 2 : VISITEUR #}
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
@@ -155,7 +144,6 @@
             </div>
         </nav>
 
-        {# --- ALERTS FLASH FLOTTANTES --- #}
         <div class="container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1050; margin-top: 80px;">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
@@ -167,12 +155,10 @@
             {% endfor %}
         </div>
 
-        {# --- CONTENU --- #}
         <div class="flex-grow-1">
             {% block body %}{% endblock %}
         </div>
 
-        {# --- FOOTER MODERNE --- #}
         <footer class="pt-5 pb-4 mt-5">
             <div class="container">
                 <div class="row g-4">

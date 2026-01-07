@@ -18,20 +18,18 @@ final class EventController extends AbstractController
     #[Route('/', name: 'app_event_index', methods: ['GET'])]
     public function index(EventRepository $eventRepository, Request $request): Response
     {
-        // On récupère ce que l'utilisateur a tapé dans la barre de recherche
         $search = $request->query->get('q');
 
         if ($search) {
-            // Si recherche, on filtre
+
             $events = $eventRepository->searchByQuery($search);
         } else {
-            // Sinon, on affiche tout
             $events = $eventRepository->findAll();
         }
 
         return $this->render('event/index.html.twig', [
             'events' => $events,
-            'searchQuery' => $search // Pour réafficher le mot dans la barre
+            'searchQuery' => $search
         ]);
     }
 
@@ -83,10 +81,8 @@ final class EventController extends AbstractController
 #[Route('/{id}', name: 'app_event_delete', methods: ['POST'])]
     public function delete(Request $request, Event $event, EntityManagerInterface $entityManager): Response
     {
-        // On vérifie juste que c'est bien toi (Admin) qui clique via le formulaire
         if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
             
-            // SUPPRESSION DIRECTE (Grace au cascade=['remove'] dans l'Entité, ça marche)
             $entityManager->remove($event);
             $entityManager->flush();
             

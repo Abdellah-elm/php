@@ -7,10 +7,8 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
             
-            {# --- CARTE DESIGN --- #}
             <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
                 
-                {# En-tête #}
                 <div class="card-header bg-dark text-white text-center py-4">
                     <h2 class="h4 fw-bold mb-1" style="font-family: 'Poppins', sans-serif;">Bon retour !</h2>
                     <p class="small text-white-50 mb-0">Connectez-vous à votre compte</p>
@@ -18,7 +16,6 @@
 
                 <div class="card-body p-4 p-md-5">
                     
-                    {# Gestion des erreurs #}
                     {% if error %}
                         <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
                             <i class="fas fa-exclamation-triangle me-2"></i>
@@ -34,7 +31,6 @@
 
                     <form method="post">
                         
-                        {# 1. EMAIL (Avec le bon name="_username") #}
                         <div class="mb-4">
                             <label for="inputEmail" class="form-label fw-bold small text-muted text-uppercase">Email</label>
                             <div class="input-group">
@@ -50,7 +46,6 @@
                             </div>
                         </div>
 
-                        {# 2. PASSWORD (Avec le bon name="_password") #}
                         <div class="mb-4">
                             <label for="inputPassword" class="form-label fw-bold small text-muted text-uppercase">Mot de passe</label>
                             <div class="input-group">
@@ -65,10 +60,8 @@
                             </div>
                         </div>
 
-                        {# 3. CSRF TOKEN #}
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                        {# 4. BOUTON #}
                         <div class="d-grid gap-2">
                             <button class="btn btn-warning btn-lg fw-bold shadow-sm py-3" type="submit">
                                 <i class="fas fa-sign-in-alt me-2"></i> Se connecter

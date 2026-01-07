@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>E-Billet #{{ billet.id }}</title>
     <style>
-        /* Reset et Base */
         body {
             font-family: 'Helvetica', 'Arial', sans-serif;
             margin: 0;
@@ -13,15 +12,13 @@
             font-size: 13px;
         }
 
-        /* Conteneur principal */
         .ticket-wrap {
             border: 1px solid #ddd;
             width: 100%;
             overflow: hidden;
-            border-radius: 4px; /* Arrondi léger */
+            border-radius: 4px; 
         }
 
-        /* En-tête Noir (Style Premium) */
         .header {
             background-color: #1a1a1a;
             color: #ffffff;
@@ -29,10 +26,9 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             font-size: 14px;
-            border-bottom: 4px solid #f0ad4e; /* Petite touche dorée/orange EventShop */
+            border-bottom: 4px solid #f0ad4e;
         }
 
-        /* Mise en page Tableaux (Obligatoire pour DOMPDF) */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -43,14 +39,12 @@
             vertical-align: top;
         }
 
-        /* Colonne Gauche : Infos */
         .main-info {
             background-color: #fff;
             width: 65%;
-            border-right: 2px dashed #ccc; /* Effet pointillé de déchirure */
+            border-right: 2px dashed #ccc; 
         }
 
-        /* Colonne Droite : QR Code */
         .sidebar {
             background-color: #f9f9f9;
             width: 35%;
@@ -58,7 +52,6 @@
             vertical-align: middle;
         }
 
-        /* Typographie */
         h1 {
             margin: 0 0 5px 0;
             font-size: 22px;
@@ -73,7 +66,6 @@
             margin-bottom: 20px;
         }
 
-        /* Labels (Date, Lieu...) */
         .info-block {
             margin-bottom: 12px;
         }
@@ -103,7 +95,6 @@
             margin-top: 10px;
         }
 
-        /* Footer */
         .footer {
             padding: 10px;
             text-align: center;
