@@ -46,18 +46,18 @@
             {% set image_path = '/images/default.jpeg' %}
 
             {# On associe tes NOUVEAUX IDs à tes ANCIENNES images #}
-            {% if event.id == 8 %}
+            {% if event.id == 7 %}
                 {# Marrakech du Rire #}
                 {% set image_path = '/images/1.jpeg' %}
             {% elseif event.id == 9 %}
                 {# Festival Gnaoua #}
-                {% set image_path = '/images/2.jpg' %}
+                {% set image_path = '/images/4.jpeg' %}
             {% elseif event.id == 10 %}
                 {# Derby #}
-                {% set image_path = '/images/3.jpeg' %}
+                {% set image_path = '/images/download.jpeg' %}
             {% elseif event.id == 11 %}
                 {# Mawazine #}
-                {% set image_path = '/images/4.jpeg' %}
+                {% set image_path = '/images/2.jpg' %}
             {# Tu peux ajouter d'autres ID ici si tu crées d'autres événements #}
             {% endif %}
 
