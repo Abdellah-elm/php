@@ -44,7 +44,7 @@ Si vous souhaitez lancer ce projet sur votre machine :
 
 1.  **Cloner le dépôt :**
     ```bash
-    git clone [https://github.com/Abdellah-elm/EventShop](https://github.com/Abdellah-elm/EventShop)
+    git clone https://github.com/Abdellah-elm/EventShop
     cd EventShop
     ```
 
@@ -84,6 +84,5 @@ Ce projet est configuré pour un déploiement continu sur **Railway**.
 * Base de données MySQL gérée via Railway Database.
 
 
-Passionné par la transformation digitale et le leadership.
 
 ---
